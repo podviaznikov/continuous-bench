@@ -1,6 +1,7 @@
 
 radius = 3px
 shadow = rgba(black, .1)
+highlight = rgba(82,168,236,.8)
 
 select
 textarea
@@ -26,8 +27,8 @@ input[type=button]
   transition: border 200ms, box-shadow 200ms
   &:focus
     outline: none
-    border-color: rgba(82,168,236,.8)
-    box-shadow: inset 0 1px 3px shadow, 0 0 8px rgba(82,168,236,.6)
+    border-color: highlight
+    box-shadow: inset 0 1px 3px shadow, 0 0 8px rgba(highlight, .4)
 
 button
 a.button
