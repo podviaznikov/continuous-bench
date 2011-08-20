@@ -1,11 +1,11 @@
 
 padding = 10px
+radius = 10px
 
 .dialog
   position: relative
   z-index: 10
   display: inline-block
-  border: 1px solid darken(border-color, 50%)
   border-radius: radius
   font-size: 13px
   box-shadow: 0 1px 8px 0 rgba(black, .8)
@@ -27,4 +27,5 @@ padding = 10px
     padding: padding
     text-align: right
     background: light
-    border-radius: radius
+    border-radius: bottom radius
+    background: dark linear-gradient(top, lighten(dark, 10%), dark)
