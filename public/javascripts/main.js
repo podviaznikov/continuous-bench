@@ -5,6 +5,26 @@ request = superagent
 o = $
 
 /**
+ * Overlay.
+ */
+
+o(function(){
+  overlay = o('#overlay');
+});
+
+/**
+ * Dialog singleton.
+ */
+
+o(function(){
+  dialog = View('dialog')
+    .close('hide')
+    .ok('hide')
+    .hide()
+    .appendTo('body');
+});
+
+/**
  * Render the benchmark data.
  */
 
@@ -27,14 +47,11 @@ o(function(){
     if (200 == res.status) {
       
     } else {
-      notify('error', res.responseText);
+      overlay.show();
+      dialog.message(res.responseText).show();
     }
   });
 });
-
-function notify(type, msg) {
-  
-}
 
 /**
  * Render chart with object of `commits`.

@@ -1,11 +1,9 @@
 
-.overlay
-
 script#dialog-template(type='text/template')
   .dialog
     h2 Title
     a.close(href='#') ✖
     .content
-      p Message
+      p.message Message
     .actions.dark
-      a.button.ok(href='#') Ok
+      a.ok.button(href='#') Ok
