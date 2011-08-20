@@ -7,7 +7,7 @@ function renderChart(data) {
 
   var p = 20,
       w = window.innerWidth - 110,
-      h = 350 - .5 - p,
+      h = window.innerHeight - 200,
       mx = m,
       my = d3.max(data, function(d) {
         return d3.max(d, function(d) {
