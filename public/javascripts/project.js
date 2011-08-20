@@ -20,6 +20,9 @@ o(window).resize(function(){
 
 o(function(){
   var commit = View(o('#commit'));
+  // TODO: there's not really any point
+  // to showing a success dialog here.
+  // When we have call-outs use those
   commit.submit.json(function(res){
     commit.commit.clear();
     if (202 == res.status) {

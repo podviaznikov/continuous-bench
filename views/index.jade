@@ -1,4 +1,9 @@
 h1 Projects
-ul#projects
-  - each project in projects
-    li: a(href='/#{project}')= project
+- if (projects.length)
+  ul#projects
+    - each project in projects
+      li: a(href='/#{project}')= project
+- else
+    p You don't have any projects! Add one with the following command:
+    pre
+      $ curl -d 'commit=HEAD' http://local/visionmedia/express/benchmark
