@@ -7,7 +7,7 @@ function renderStack() {
 
   var p = 20,
       w = window.innerWidth - 110,
-      h = 500 - .5 - p,
+      h = 350 - .5 - p,
       mx = m,
       my = d3.max(data, function(d) {
         return d3.max(d, function(d) {
