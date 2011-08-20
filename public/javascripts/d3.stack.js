@@ -1,9 +1,9 @@
 
-function renderStack(data) {
+function renderChart(data) {
   var n = data.length,
       m = data[0].length,
       data = d3.layout.stack()(data),
-      color = d3.interpolateRgb("#aad", "#556");
+      color = d3.interpolateRgb("#aad", "#8383AD");
 
   var p = 20,
       w = window.innerWidth - 110,

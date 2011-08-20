@@ -8,11 +8,13 @@ o(function(){
   var seriesA = []
     , seriesB = []
     , data = [seriesA, seriesB];
-  seriesA.push({ x: 0, y: 5 });
-  seriesA.push({ x: 1, y: 10 });
-  seriesB.push({ x: 0, y: 10 });
-  seriesB.push({ x: 1, y: 15 });
-  renderStack(data);
+
+  for (var i = 0; i < 50; ++i) {
+    seriesA.push({ x: i, y: Math.random() * 50 | 0 });
+    seriesB.push({ x: i, y: Math.random() * 50 | 0 });
+  }
+
+  renderChart(data);
 });
 
 /* Inspired by Lee Byron's test data generator. */
