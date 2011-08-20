@@ -22,7 +22,7 @@ jobs.process('benchmark', function(job, done){
   var user = job.data.user
     , project = job.data.project
     , commit = job.data.commit
-    , key = user + '/' + project
+    , key = 'cb:' + user + '/' + project
     , project = new Project(user, project)
     , steps = 6
     , complete = 0;
