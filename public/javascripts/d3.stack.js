@@ -1,8 +1,8 @@
 
-function renderStack() {
-  var n = 4, // number of layers
-      m = 64, // number of samples per layer
-      data = d3.layout.stack()(stream_layers(n, m, .1)),
+function renderStack(data) {
+  var n = data.length,
+      m = data[0].length,
+      data = d3.layout.stack()(data),
       color = d3.interpolateRgb("#aad", "#556");
 
   var p = 20,

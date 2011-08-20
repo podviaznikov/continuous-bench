@@ -5,7 +5,14 @@ request = superagent
 o = $
 
 o(function(){
-  renderStack();
+  var seriesA = []
+    , seriesB = []
+    , data = [seriesA, seriesB];
+  seriesA.push({ x: 0, y: 5 });
+  seriesA.push({ x: 1, y: 10 });
+  seriesB.push({ x: 0, y: 10 });
+  seriesB.push({ x: 1, y: 15 });
+  renderStack(data);
 });
 
 /* Inspired by Lee Byron's test data generator. */
