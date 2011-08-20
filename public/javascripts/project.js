@@ -12,7 +12,6 @@ o(refresh);
 o(function(){
   var commit = View(o('#commit'));
   commit.submit.json(function(res){
-    // TODO: handle (global errors + preventDefault())
     if (202 == res.status) {
       dialog
         .title('Job queued')
