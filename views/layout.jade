@@ -10,6 +10,8 @@ html
     script(src='/javascripts/d3.layout.js')
     script(src='/javascripts/d3.stack.js')
     script(src='/javascripts/main.js')
+    - each path in scripts
+      script(src=path)
     - if (locals.javascript)
       script!= javascript
   body
