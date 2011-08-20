@@ -24,6 +24,7 @@ o(function(){
     .center()
     .appendTo('body')
     .on('show', function(){
+      overlay.show();
       dialog.center();
     })
     .on('hide', function(){
@@ -54,8 +55,10 @@ o(function(){
     if (200 == res.status) {
       
     } else {
-      overlay.show();
-      dialog.message(res.responseText).show();
+      dialog
+        .title('Error')
+        .message(res.responseText)
+        .show();
     }
   });
 });
