@@ -21,27 +21,23 @@ jobs.process('benchmark', function(job, done){
     , project = job.data.project
     , commit = job.data.project
     , project = new Project(user, project)
-    , key = user + '/' + project;
+    , key = user + '/' + project
+    , steps = 0
+    , complete = 0;
 
-  project.on('fetch', function(){
-    job.log('fetching commit');
-  });
+  function log(step) {
+    ++steps;
+    project.on(step, function(){
+      job.log(step);
+      job.progress(++complete, steps);
+    });
+  }
 
-  project.on('clone', function(){
-    job.log('performing initial clone');
-  });
-
-  project.on('checkout', function(){
-    job.log('checking out commit');
-  });
-
-  project.on('dependencies', function(){
-    job.log('updating dependencies');
-  });
-
-  project.on('benchmark', function(){
-    job.log('running benchmarks');
-  });
+  log('fetch');
+  log('clone');
+  log('checkout');
+  log('dependencies');
+  log('benchmark');
 
   project.benchmark(commit, function(err, res){
     if (err) return done(err);
