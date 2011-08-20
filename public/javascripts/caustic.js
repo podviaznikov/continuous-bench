@@ -128,12 +128,14 @@ function camelcase(str) {
 View = function View(name) {
   if (!(this instanceof View)) return new View(name);
   EventEmitter.call(this);
-  var html;
+  var html, self = this;
   if (name instanceof jQuery) html = name;
   else if (~name.indexOf('<')) html = name;
   else html = $('#' + name + '-template').html(); 
   this.el = $(html);
-  this.visit(this.el);
+  this.el.each(function(i, el){
+    self.visit($(el));
+  });
 };
 
 /**
@@ -189,35 +191,42 @@ View.prototype.visitTABLE = function(el, name){
 View.prototype.visitINPUT = function(el, name){
   var self = this
     , type = el.attr('type')
-    , name = el.attr('name')
-      ? camelcase(el.attr('name'))
-      : name;
+    , name = el.attr('name') || name
+    , parts = name.replace(/\]/g, '').split('[')
+    , obj = this;
+
+  parts.slice(0, -1).forEach(function(prop){
+    if ('' == prop) return;
+    obj = obj[prop] = obj[prop] || {};
+  });
+
+  name = parts[parts.length - 1];
 
   switch (type) {
     case 'text':
     case 'password':
-      this[name] = function(val){
+      obj[name] = function(val){
         if (0 == arguments.length) return el.val();
         el.val(val);
-        return this;
+        return self;
       };
 
-      this[name].placeholder = function(val){
+      obj[name].placeholder = function(val){
         el.attr('placeholder', val);
         return this;
       };
 
-      this[name].isEmpty = function(){
+      obj[name].isEmpty = function(){
         return '' == $.trim(el.val());
       };
 
-      this[name].clear = function(){
+      obj[name].clear = function(){
         el.val('');
         return self;
       };
       break;
     case 'checkbox':
-      this[name] = function(val){
+      obj[name] = function(val){
         if (0 == arguments.length) return el.attr('checked');
         switch (typeof val) {
           case 'function':
@@ -230,7 +239,7 @@ View.prototype.visitINPUT = function(el, name){
               ? 'checked'
               : val);
         }
-        return this;
+        return self;
       };
       break;
     case 'button':
@@ -270,9 +279,40 @@ View.prototype.visitFORM = function(el, name){
   this[name].values = function(){
     return el.serializeArray();
   };
+
   this[name].values.toString = function(){
     return el.serialize();
   };
+
+  this[name].object = function(other){
+    var inputs = el.serializeArray()
+      , root = {};
+
+    inputs.forEach(function(input){
+      var parts = input.name.replace(/\]/g, '').split('[')
+        , name = parts[parts.length - 1]
+        , obj = root;
+
+      parts.slice(0, -1).forEach(function(prop){
+        if ('' == prop) return;
+        obj = obj[prop] = obj[prop] || {};
+      });
+
+      obj[name] = input.value;
+    });
+
+    if (other) for (var key in other) root[key] = other[key];
+
+    return root;
+  };
+
+  this[name].object.toString = function(other){
+    return JSON.stringify(self[name].object(other));
+  };
+
+  this[name].action = el.attr('action');
+  this[name].method = el.attr('method');
+  this[name].enctype = el.attr('enctype');
 
   this.submit = function(val){
     switch (typeof val) {
@@ -285,6 +325,18 @@ View.prototype.visitFORM = function(el, name){
       default:
         el.submit();
     }
+    return this;
+  };
+
+  this.submit.json = function(fn){
+    this(function(){
+      $.ajax({
+          type: self.form.method.toUpperCase()
+        , url: self.form.action
+        , data: self.form.object.toString()
+        , headers: { 'Content-Type': 'application/json' }
+      }).complete(fn);
+    });
   };
 };
 
@@ -335,11 +387,15 @@ View.prototype.visitBUTTON = function(el, name){
   });
 
   this[name] = function(fn){
-    fn = callbackFor(fn, this);
-    el.click(function(e){
-      fn.call(self, e, el);
-      return false;
-    });
+    if (fn){
+      fn = callbackFor(fn, this);
+      el.click(function(e){
+        fn.call(self, e, el);
+        return false;
+      });
+    } else {
+      el.click();
+    }
     return this;
   };
 };
@@ -484,6 +540,7 @@ View.prototype.remove = function(){
     , type = parent.get(0).nodeName;
   if ('LI' == type) parent.remove();
   else this.el.remove();
+  this.emit('remove');
   return this;
 };
 
@@ -525,6 +582,7 @@ View.prototype.replace = function(val){
 
 View.prototype.hide = function(){
   this.el.hide();
+  this.emit('hide');
   return this;
 };
 
@@ -537,6 +595,7 @@ View.prototype.hide = function(){
 
 View.prototype.show = function(){
   this.el.show();
+  this.emit('show');
   return this;
 };
 
@@ -556,9 +615,14 @@ View.prototype.center = function(other){
     , height = other.height();
 
   if (!this._resize) {
-    $(other).resize(function(){
-      self.center();
-    });
+    $(other).resize(function(){ self.center(); });
+
+    function unbind(){
+      self._resize = false;
+      $(other).unbind('resize');
+    }
+
+    this.on('hide', unbind).on('remove', unbind);
     this._resize = true;
   }
 

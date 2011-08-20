@@ -22,6 +22,6 @@ o(function(){
 o(function(){
   var commit = View(o('#commit'));
   commit.submit(function(){
-    console.log('submitted');
+    console.log(commit.form.object);
   });
 });
