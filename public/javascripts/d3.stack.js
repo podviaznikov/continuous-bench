@@ -3,7 +3,7 @@ function renderChart(data) {
   var n = data.length,
       m = data[0].length,
       data = d3.layout.stack()(data),
-      color = d3.interpolateRgb("#aad", "#8383AD");
+      color = d3.interpolateRgb("#0196BB", "#00B6E4");
 
   var p = 20,
       w = window.innerWidth - 110,
