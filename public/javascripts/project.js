@@ -1,15 +1,9 @@
 
 /**
- * Render the benchmark data.
+ * Fetch initial benchmark data.
  */
 
-o(function(){
-  request
-    .get(express.project + '/benchmarks')
-    .end(function(res){
-      render(res.body);
-    });
-});
+o(refresh);
 
 /**
  * Manual commit benchmark.
@@ -29,6 +23,18 @@ o(function(){
     }
   });
 });
+
+/**
+ * Render the benchmark data.
+ */
+
+function refresh() {
+  request
+    .get(express.project + '/benchmarks')
+    .end(function(res){
+      if (!isEmpty(res.body)) render(res.body);
+    });
+}
 
 /**
  * Render chart with object of `commits`.
@@ -56,4 +62,16 @@ function render(commits) {
   }
 
   renderChart(data);
+}
+
+/**
+ * Check if `obj` is empty.
+ *
+ * @param {Object} obj
+ * @return {Boolean}
+ * @api public
+ */
+
+function isEmpty(obj) {
+  return 0 == Object.keys(obj).length;
 }
