@@ -1,4 +1,7 @@
-h1 #{user}/#{project}
+h1 
+  span.user=user
+  em /
+  span.project= project
 
 #commit
   form(method='post', action='/#{user}/#{project}/benchmark')

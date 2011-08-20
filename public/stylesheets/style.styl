@@ -1,4 +1,6 @@
 
+@import 'mixins'
+
 dark = #1D1D1D
 
 body
@@ -14,7 +16,15 @@ h1, h2, h3
 a
   color: #00B7FF
 
-#actions
+#commit
   margin: 25px 0
+
+h1
+  font-smoothing: antialiased
+  em
+    padding: 0 5px
+    color: #ddd
+  .project
+    color: #888
 
 @import 'forms'
