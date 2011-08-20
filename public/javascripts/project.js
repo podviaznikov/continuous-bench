@@ -6,6 +6,15 @@
 o(refresh);
 
 /**
+ * Re-render on resize.
+ */
+
+o(window).resize(function(){
+  o('#chart').empty();
+  render(render.previousCommits);
+});
+
+/**
  * Manual commit benchmark.
  */
 
@@ -35,7 +44,11 @@ function refresh() {
   request
     .get(express.project + '/benchmarks')
     .end(function(res){
-      if (!isEmpty(res.body)) render(res.body);
+      var commits = res.body;
+      if (!isEmpty(commits)) {
+        render.previousCommits = commits;
+        render(commits);
+      }
     });
 }
 
