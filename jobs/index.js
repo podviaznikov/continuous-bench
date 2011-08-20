@@ -19,7 +19,7 @@ require('../app');
 jobs.process('benchmark', function(job, done){
   var user = job.data.user
     , project = job.data.project
-    , commit = job.data.project
+    , commit = job.data.commit
     , project = new Project(user, project)
     , key = user + '/' + project
     , steps = 0
