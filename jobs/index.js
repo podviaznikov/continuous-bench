@@ -4,14 +4,22 @@
  */
 
 var kue = require('kue')
-  , jobs = kue.createQueue('cb');
+  , jobs = kue.createQueue('cb')
+  , Project = require('../project');
 
 /**
  * Process benchmark jobs.
  */
 
 jobs.process('benchmark', function(job, done){
-  console.log(job.data);
+  var user = job.data.user
+    , project = job.data.project
+    , commit = job.data.project
+    , project = new Project(user, project);
+
+  project.benchmark(commit, function(err, obj){
+    if (err) return done(err);
+  });
 });
 
 // start the app
