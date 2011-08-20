@@ -1,5 +1,6 @@
 h1 Projects
-- if (projects.length)
+
+- if (locals.projects && projects.length)
   ul#projects
     - each project in projects
       li: a(href='/#{project}')= project
