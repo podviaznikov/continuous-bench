@@ -18,3 +18,10 @@ o(function(){
 
   renderChart(data);
 });
+
+o(function(){
+  var commit = View(o('#commit'));
+  commit.submit(function(){
+    console.log('submitted');
+  });
+});
