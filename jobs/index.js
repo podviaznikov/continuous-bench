@@ -8,6 +8,10 @@ var kue = require('kue')
   , Project = require('../lib/project')
   , db = require('redis').createClient();
 
+// load config
+
+require('../app');
+
 /**
  * Process benchmark jobs.
  */
