@@ -12,6 +12,7 @@ o(refresh);
 o(function(){
   var commit = View(o('#commit'));
   commit.submit.json(function(res){
+    commit.commit.clear();
     if (202 == res.status) {
       dialog
         .title('Job queued')
