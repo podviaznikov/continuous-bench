@@ -5,7 +5,7 @@
 
 var kue = require('kue')
   , jobs = kue.createQueue('cb')
-  , Project = require('../project')
+  , Project = require('../lib/project')
   , db = require('redis').createClient();
 
 /**
