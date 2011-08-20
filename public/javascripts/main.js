@@ -9,6 +9,14 @@ o(function(){
   renderChart(data);
 });
 
+o(function(){
+  request
+    .get(express.project + '/benchmarks')
+    .end(function(res){
+      console.log(res.body);
+    });
+});
+
 /**
  * Manual commit benchmark.
  */
@@ -16,6 +24,7 @@ o(function(){
 o(function(){
   var commit = View(o('#commit'));
   commit.submit.json(function(res){
+    // TODO: handle (global errors + preventDefault())
     console.log(res);
   });
 });
