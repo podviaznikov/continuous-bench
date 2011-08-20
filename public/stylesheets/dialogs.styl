@@ -3,11 +3,13 @@ padding = 10px
 
 .dialog
   position: relative
+  z-index: 10
   display: inline-block
-  border: 1px solid border-color
+  border: 1px solid darken(border-color, 50%)
   border-radius: radius
   font-size: 13px
-  box-shadow: 0 0 4px shadow
+  box-shadow: 0 1px 8px 0 rgba(black, .8)
+  background: white
   h2
     margin: 0
     font-size: 15px
@@ -25,3 +27,4 @@ padding = 10px
     padding: padding
     text-align: right
     background: light
+    border-radius: radius
