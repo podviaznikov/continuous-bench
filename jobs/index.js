@@ -12,6 +12,8 @@ var kue = require('kue')
 
 require('../app');
 
+// TODO: concurrency
+
 /**
  * Process benchmark jobs.
  */
@@ -20,15 +22,14 @@ jobs.process('benchmark', function(job, done){
   var user = job.data.user
     , project = job.data.project
     , commit = job.data.commit
-    , project = new Project(user, project)
     , key = user + '/' + project
-    , steps = 0
+    , project = new Project(user, project)
+    , steps = 6
     , complete = 0;
 
-  function log(step) {
-    ++steps;
-    project.on(step, function(){
-      job.log(step);
+  function log(event) {
+    project.on(event, function(){
+      job.log(event);
       job.progress(++complete, steps);
     });
   }
@@ -42,6 +43,8 @@ jobs.process('benchmark', function(job, done){
   project.benchmark(commit, function(err, res){
     if (err) return done(err);
     try {
+      job.log('saving %s results to the %s hash', commit, key);
+      job.progress(++complete, steps);
       res = JSON.stringify(res);
       db.hset(key, commit, res, done);
     } catch (err) {
