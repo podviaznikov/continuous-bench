@@ -28,6 +28,12 @@ o(function(){
   });
 });
 
+/**
+ * Render chart with object of `commits`.
+ *
+ * @param {Object} commits
+ */
+
 function render(commits) {
   var firstKey = Object.keys(commits)[0]
     , keys = commits[firstKey]
