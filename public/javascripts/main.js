@@ -21,7 +21,11 @@ o(function(){
     .close('hide')
     .ok('hide')
     .hide()
+    .center()
     .appendTo('body')
+    .on('show', function(){
+      dialog.center();
+    })
     .on('hide', function(){
       overlay.hide();
     });
