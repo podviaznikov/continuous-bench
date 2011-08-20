@@ -24,9 +24,17 @@ o(function(){
   var commit = View(o('#commit'));
   commit.submit.json(function(res){
     // TODO: handle (global errors + preventDefault())
-    console.log(res);
+    if (200 == res.status) {
+      
+    } else {
+      notify('error', res.responseText);
+    }
   });
 });
+
+function notify(type, msg) {
+  
+}
 
 /**
  * Render chart with object of `commits`.
