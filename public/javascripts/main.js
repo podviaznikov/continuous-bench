@@ -21,7 +21,10 @@ o(function(){
     .close('hide')
     .ok('hide')
     .hide()
-    .appendTo('body');
+    .appendTo('body')
+    .on('hide', function(){
+      overlay.hide();
+    });
 });
 
 /**
