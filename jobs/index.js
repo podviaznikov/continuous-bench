@@ -19,6 +19,26 @@ jobs.process('benchmark', function(job, done){
     , project = new Project(user, project)
     , key = user + '/' + project;
 
+  project.on('fetch', function(){
+    job.log('fetching commit');
+  });
+
+  project.on('clone', function(){
+    job.log('performing initial clone');
+  });
+
+  project.on('checkout', function(){
+    job.log('checking out commit');
+  });
+
+  project.on('dependencies', function(){
+    job.log('updating dependencies');
+  });
+
+  project.on('benchmark', function(){
+    job.log('running benchmarks');
+  });
+
   project.benchmark(commit, function(err, res){
     if (err) return done(err);
     try {
