@@ -5,6 +5,8 @@ request = superagent
 o = $
 
 o(function(){
+  console.log(express.user);
+  console.log(express.project);
   var seriesA = []
     , seriesB = []
     , data = [seriesA, seriesB];

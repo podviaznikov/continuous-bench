@@ -10,5 +10,7 @@ html
     script(src='/javascripts/d3.layout.js')
     script(src='/javascripts/d3.stack.js')
     script(src='/javascripts/main.js')
+    - if (locals.javascript)
+      script!= javascript
   body
     #content!= body
