@@ -311,7 +311,7 @@ View.prototype.visitFORM = function(el, name){
   };
 
   this[name].action = el.attr('action');
-  this[name].method = el.attr('method');
+  this[name].method = el.attr('method') || 'get';
   this[name].enctype = el.attr('enctype');
 
   this.submit = function(val){
@@ -335,7 +335,14 @@ View.prototype.visitFORM = function(el, name){
         , url: self.form.action
         , data: self.form.object.toString()
         , headers: { 'Content-Type': 'application/json' }
-      }).complete(fn);
+      })
+      .success(function(body, retardedMessage, res){
+        res.body = body;
+        fn(res);
+      })
+      .error(function(res){
+        fn(res);
+      });
     });
   };
 };

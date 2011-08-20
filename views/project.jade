@@ -1,7 +1,7 @@
 h1 #{user}/#{project}
 
 #commit
-  form
+  form(method='post', action='/#{user}/#{project}/benchmark')
     input(type='text', name='commit', placeholder='Commit')
     input(type='submit', value='Go')
 

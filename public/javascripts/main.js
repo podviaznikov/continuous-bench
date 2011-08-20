@@ -5,23 +5,17 @@ request = superagent
 o = $
 
 o(function(){
-  console.log(express.user);
-  console.log(express.project);
-  var seriesA = []
-    , seriesB = []
-    , data = [seriesA, seriesB];
-
-  for (var i = 0; i < 50; ++i) {
-    seriesA.push({ x: i, y: Math.random() * 50 | 0 });
-    seriesB.push({ x: i, y: Math.random() * 50 | 0 });
-  }
-
+  var data = [[{}]];
   renderChart(data);
 });
 
+/**
+ * Manual commit benchmark.
+ */
+
 o(function(){
   var commit = View(o('#commit'));
-  commit.submit(function(){
-    console.log(commit.form.object);
+  commit.submit.json(function(res){
+    console.log(res);
   });
 });
