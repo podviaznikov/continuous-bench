@@ -4,16 +4,15 @@
 request = superagent
 o = $
 
-o(function(){
-  var data = [[{}]];
-  renderChart(data);
-});
+/**
+ * Render the benchmark data.
+ */
 
 o(function(){
   request
     .get(express.project + '/benchmarks')
     .end(function(res){
-      console.log(res.body);
+      render(res.body);
     });
 });
 
@@ -28,3 +27,23 @@ o(function(){
     console.log(res);
   });
 });
+
+function render(commits) {
+  var firstKey = Object.keys(commits)[0]
+    , keys = commits[firstKey]
+    , data = []
+    , series
+    , i = 0;
+
+  for (var key in keys) {
+    series = [];
+    for (var commit in commits) {
+      commit = commits[commit][key];
+      series.push({ x: i, y: commit });
+      ++i;
+    }
+    data.push(series);
+  }
+
+  renderChart(data);
+}
