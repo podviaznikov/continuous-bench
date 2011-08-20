@@ -6,7 +6,7 @@ function renderStack() {
       color = d3.interpolateRgb("#aad", "#556");
 
   var p = 20,
-      w = 960,
+      w = window.innerWidth - 110,
       h = 500 - .5 - p,
       mx = m,
       my = d3.max(data, function(d) {
