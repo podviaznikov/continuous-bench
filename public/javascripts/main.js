@@ -33,13 +33,15 @@ function render(commits) {
     , keys = commits[firstKey]
     , data = []
     , series
+    , sha
     , i = 0;
 
   for (var key in keys) {
     series = [];
     for (var commit in commits) {
-      commit = commits[commit][key];
-      series.push({ x: i, y: commit });
+      sha = commit;
+      commit = commits[sha][key];
+      series.push({ label: sha.slice(0, 4), x: i, y: commit });
       ++i;
     }
     data.push(series);
