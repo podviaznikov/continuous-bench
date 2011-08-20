@@ -13,8 +13,11 @@ o(function(){
   var commit = View(o('#commit'));
   commit.submit.json(function(res){
     // TODO: handle (global errors + preventDefault())
-    if (200 == res.status) {
-      
+    if (202 == res.status) {
+      dialog
+        .title('Job queued')
+        .message('I\'ll begin benchmarking ' + commit.commit() + ' right away!')
+        .show();
     } else {
       dialog
         .title('Error')
