@@ -60,7 +60,7 @@ function renderChart(data) {
       .attr("dx", x({x: .45}))
       .attr("dy", ".71em")
       .attr("text-anchor", "middle")
-      .attr("fill", "rgba(255,255,255,.3)")
+      .attr("fill", "#232324")
       .text(function(d, i) { return d.label || i; });
 
   vis.append("svg:line")
