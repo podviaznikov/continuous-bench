@@ -5,8 +5,8 @@
   , "dependencies": {
       "express": "2.4.5"
     , "express-expose": "0.2.0"
-    , "stylus": "0.15.1"
-    , "jade": "0.14.2"
+    , "stylus": "0.16.0"
+    , "jade": "0.16.0"
     , "mkdirp": "0.0.5"
     , "log": "1.2.0"
     , "redis": "0.6.7"
