@@ -7,9 +7,9 @@ html
     script(src='/javascripts/caustic.js')
     script(src='/javascripts/superagent.js')
     script(src='/javascripts/main.js')
-    - each path in scripts
+    each path in scripts
       script(src=path)
-    - if (locals.javascript)
+    if locals.javascript
       script!= javascript
   body
     include templates/dialog  
