@@ -7,7 +7,7 @@
     , "express-expose": "0.2.0"
     , "stylus": "0.16.0"
     , "jade": "0.16.0"
-    , "mkdirp": "0.0.5"
+    , "mkdirp": "0.0.7"
     , "log": "1.2.0"
     , "redis": "0.6.7"
     , "kue": "0.3.0"
