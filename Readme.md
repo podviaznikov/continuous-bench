@@ -1,7 +1,6 @@
-
 # Continuous Bench
 
-  A small node.js application for benchmarking projects in a continuous manner.
+  A small node.js application for benchmarking projects in a continuous manner. Works with any project! all you need is a Makefile :)
 
   ![screenshot](http://f.cl.ly/items/1R2S0r1S0i052T1B1v2k/Screenshot.png)
 
