@@ -25,7 +25,7 @@ o(function(){
   // When we have call-outs use those
   commit.submit.json(function(res){
     commit.commit.clear();
-    if (202 == res.status) {
+    if (res.accepted) {
       dialog
         .title('Job queued')
         .message('I\'ll begin benchmarking ' + commit.commit() + ' right away!')
