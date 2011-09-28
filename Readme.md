@@ -7,6 +7,12 @@
 
 ## Setup
 
+ Install dependencies:
+
+```
+$ npm install -d
+```
+
  Start the app:
 
 ```
