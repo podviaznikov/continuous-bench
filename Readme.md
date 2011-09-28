@@ -1,11 +1,36 @@
 
 # Continuous Bench
 
-  A small Node.js application for benchmarking projects in a continuous manner.
+  A small node.js application for benchmarking projects in a continuous manner.
 
   ![screenshot](http://f.cl.ly/items/1R2S0r1S0i052T1B1v2k/Screenshot.png)
 
-## Project setup
+## Setup
+
+ Start the app:
+
+```
+$ node app
+Express server listening on port 3000 in development mode
+```
+
+ Start [Kue](http://learnboost.github.com/kue) to process the jobs:
+
+```
+$ node jobs
+Kue listening on port 8888
+```
+
+  Benchmark against a specific commit:
+
+```
+$ curl -d 'commit=HEAD' http://local/visionmedia/express/benchmark
+Accepted
+```
+
+  View the reports by visiting `http://localhost:3000/visionmedia/express`, where you may manually enter commits as well.
+
+## Benchmarking projects
 
   Setting up a project to use CB is simple, all you need is a `make benchmark` target, outputting colon-delimited results. The labels on the left-hand side are used for display in reporting, and the values on the right represent ops/s or whatever you wish.
 
